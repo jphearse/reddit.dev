@@ -34,3 +34,9 @@ Route::get('/increment/{num?}', function ($num = 0) {
 Route::get('/add/{num1?}/{num2?}', function ($num1 = 0, $num2 = 0) {
     return $num1 + $num2;
 });
+
+Route::get('/rolldice/{guess?}', function ($guess = 0) {
+    $dice['random'] = rand(1, 6);
+    $dice['guess'] = $guess;
+    return view('roll-dice') -> with($dice);
+});
