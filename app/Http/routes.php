@@ -31,9 +31,4 @@ Route::get('/add/{num1?}/{num2?}', function ($num1 = 0, $num2 = 0) {
     return $num1 + $num2;
 });
 
-Route::get('/rolldice/{guess?}', function ($guess = 0) {
-    $dice['random'] = 0;
-    $dice['guess'] = $guess;
-    $dice['correct'] = ($dice['random'] == $dice['guess']);
-    return view('roll-dice') -> with($dice);
-});
+Route::get('/rolldice/{guess?}', 'HomeController@rolldice');

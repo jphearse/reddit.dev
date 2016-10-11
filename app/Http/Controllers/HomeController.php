@@ -21,4 +21,12 @@ class HomeController extends Controller
     	return $num + 1;
     }
 
+    public function rolldice($guess)
+    {
+    	$dice['random'] = 0;
+	    $dice['guess'] = $guess;
+	    $dice['correct'] = ($dice['random'] == $dice['guess']);
+	    return view('roll-dice') -> with($dice);
+    }
+
 }

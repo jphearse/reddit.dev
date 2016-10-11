@@ -14,11 +14,11 @@
 
     <h2>Make Another Guess</h2>
     <ul>
-	    <li><a href="/rolldice/1">Guess 1</a></li>
-	    <li><a href="/rolldice/2">Guess 2</a></li>
-	    <li><a href="/rolldice/3">Guess 3</a></li>
-	    <li><a href="/rolldice/4">Guess 4</a></li>
-	    <li><a href="/rolldice/5">Guess 5</a></li>
-	    <li><a href="/rolldice/6">Guess 6</a></li>
+	    <li><a href="{{ action('HomeController@rolldice') }}/1">Guess 1</a></li>
+	    <li><a href="{{ action('HomeController@rolldice') }}/2">Guess 2</a></li>
+	    <li><a href="{{ action('HomeController@rolldice') }}/3">Guess 3</a></li>
+	    <li><a href="{{ action('HomeController@rolldice') }}/4">Guess 4</a></li>
+	    <li><a href="{{ action('HomeController@rolldice') }}/5">Guess 5</a></li>
+	    <li><a href="{{ action('HomeController@rolldice') }}/6">Guess 6</a></li>
     </ul>
 @stop
