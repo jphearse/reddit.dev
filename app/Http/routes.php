@@ -24,7 +24,9 @@ Route::get('/sayhello/{name?}', function($name = 'Lassen'){
 });
 
 Route::get('/uppercase/{str?}', function ($str = 'uppercase') {
-    return strtoupper($str);
+    $data['str'] = $str;
+    $data['upper'] = strtoupper($str);
+    return view('uppercase') -> with($data);
 });
 
 Route::get('/increment/{num?}', function ($num = 0) {
@@ -36,7 +38,7 @@ Route::get('/add/{num1?}/{num2?}', function ($num1 = 0, $num2 = 0) {
 });
 
 Route::get('/rolldice/{guess?}', function ($guess = 0) {
-    $dice['random'] = rand(1, 6);
+    $dice['random'] = 0;
     $dice['guess'] = $guess;
     $dice['correct'] = ($dice['random'] == $dice['guess']);
     return view('roll-dice') -> with($dice);
