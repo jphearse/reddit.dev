@@ -1,7 +1,9 @@
 @extends('layouts.masterInputs')
 
-@section('show')
-	<table class="table">
+@section('title', 'Post')
+
+@section('content')
+	{{-- <table class="table">
 	<thead>
 	<tr>
 		<th>ID</th>
@@ -18,5 +20,15 @@
 		<td>{{ $posts->url }}</td>
 	</tr>
 	</tbody>
-	</table>
+	</table> --}}
+
+
+	<h1>{{ $posts->title }}</h1>
+		<h5><a href="{{ $posts->url }}" target="_blank">{{ $posts->url }}</a></h5>
+		<h5>Created on: {{ $posts->created_at->setTimezone('America/Chicago')->format('l, F jS Y @ h:i:s A')}}</h5>
+		<p>{{ $posts->content }}</p>
+
+		<a href="/posts"><button type="button" class="btn btn-info">All Posts</button></a>
+		<a href="/posts/{{ $posts->id }}/edit"><button type="button" class="btn btn-danger">Edit</button></a>
+
 @stop

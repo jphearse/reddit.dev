@@ -23,7 +23,7 @@ class PostsController extends Controller
         //     echo $post->url;
         //     echo $post->contnent;
         // }
-        $data['posts'] = \App\Models\Post::all();
+        $data['posts'] = \App\Models\Post::paginate(4);
         return view('posts.index') -> with($data);
     }
 
@@ -47,12 +47,22 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
+        $rules = [
+            'title'   => 'required|min:1',
+            'url'     => 'required',
+            'content' => 'required',
+        ];
+        // will redirect back with $errors object populated if validation fails
+        $this->validate($request, $rules);
+
         $post = new Post;
         $post->title = $request->title;
         $post->url = $request->url;
         $post->content = $request->content;
         $post->created_by = 1;
         $post->save();
+
+        $request->session()->flash('SUCCESS_MESSAGE', 'Post was saved successfully');
 
         return redirect()->action('PostsController@show', $post->id);
     }

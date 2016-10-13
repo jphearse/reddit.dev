@@ -1,9 +1,9 @@
 @extends('layouts.masterInputs')
 
-@section('title', 'Create')
+@section('title', 'User')
 
 @section('content')
-	<form class="form" method="POST" action="{{ action('PostsController@store') }}">
+	<form class="form" method="POST" action="{{ action('UserController@store') }}">
 		{!! csrf_field() !!}
 			@if($errors->has('title') || $errors->has('content') || $errors->has('url'))
                 <div class="alert alert-danger">
@@ -18,9 +18,9 @@
                     @endif
                 </div>
             @endif
-		<strong>Title:</strong> <input class="form-control" type="text" name="title" value="{{ old('title') }}">
-		<strong>Url:</strong> <input class="form-control" type="text" name="url" value="{{ old('url') }}">
-		<strong>Content:</strong> <textarea class="form-control" type="text" name="content" rows="5" value="{{ old('content') }}"></textarea>
+		<strong>Name:</strong> <input class="form-control" type="text" name="name" value="{{ old('name') }}">
+		<strong>Email:</strong> <input class="form-control" type="text" name="email" value="{{ old('email') }}">
+		<strong>Password:</strong> <input class="form-control" type="text" name="password" value="{{ old('content') }}"></input>
 		<br>
 		<input class="btn-success btn" type="submit">
 
