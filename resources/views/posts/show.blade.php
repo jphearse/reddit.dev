@@ -30,5 +30,5 @@
 
 		<a href="/posts"><button type="button" class="btn btn-info">All Posts</button></a>
 		<a href="/posts/{{ $posts->id }}/edit"><button type="button" class="btn btn-danger">Edit</button></a>
-
+		<a href="/posts/"><button type="button" class="btn btn-danger">Delete</button></a>
 @stop

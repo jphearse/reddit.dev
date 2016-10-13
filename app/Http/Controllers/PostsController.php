@@ -53,7 +53,9 @@ class PostsController extends Controller
             'content' => 'required',
         ];
         // will redirect back with $errors object populated if validation fails
+        $request->session()->flash('ERROR_MESSAGE', 'Post was not saved. Please fix errors.');
         $this->validate($request, $rules);
+        $request->session()->forget('ERROR_MESSAGE');
 
         $post = new Post;
         $post->title = $request->title;
@@ -104,12 +106,21 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $rules = [
+            'title'   => 'required|min:1',
+            'url'     => 'required',
+            'content' => 'required',
+        ];
+
+        $this->validate($request, $rules);
+
         $post = Post::find($id);
         $post->title = $request->title;
         $post->url = $request->url;
         $post->content = $request->content;
         $post->save();
 
+        $request->session()->flash('SUCCESS_MESSAGE', 'Post was updated successfully');
         return redirect()->action('PostsController@show', $post->id);
     }
 
