@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Post;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -16,7 +17,14 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return 'Show a list of all posts';
+        // dd(Post::all());
+        // foreach ($posts as $post){
+        //     echo $post->title;
+        //     echo $post->url;
+        //     echo $post->contnent;
+        // }
+        $data['posts'] = \App\Models\Post::all();
+        return view('posts.index') -> with($data);
     }
 
     /**
@@ -39,7 +47,14 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        return back()->withInput();
+        $post = new Post;
+        $post->title = $request->title;
+        $post->url = $request->url;
+        $post->content = $request->content;
+        $post->created_by = 1;
+        $post->save();
+
+        return redirect()->action('PostsController@show', $post->id);
     }
 
     /**
@@ -50,7 +65,11 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        return 'Show a specific post';
+        // $posts = \App\Models\Post::find($id);
+        // return $posts;
+        // return 'Show a specific post';
+        $data['posts'] = \App\Models\Post::find($id);
+        return view('posts.show') -> with($data);
     }
 
     /**
@@ -61,7 +80,9 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        return view('posts.edit');
+        $post = Post::find($id);
+        $data = ['post' => $post];
+        return view('posts.edit')->with($data);
     }
 
     /**
@@ -73,8 +94,13 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $inputs = $request->all();
-        return back()->withInput();
+        $post = Post::find($id);
+        $post->title = $request->title;
+        $post->url = $request->url;
+        $post->content = $request->content;
+        $post->save();
+
+        return redirect()->action('PostsController@show', $post->id);
     }
 
     /**
