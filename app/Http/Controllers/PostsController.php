@@ -8,6 +8,9 @@ use App\Models\Post;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+
+use Illuminate\Support\Facades\Log;
+
 class PostsController extends Controller
 {
     /**
@@ -17,12 +20,11 @@ class PostsController extends Controller
      */
     public function index()
     {
-        // dd(Post::all());
-        // foreach ($posts as $post){
-        //     echo $post->title;
-        //     echo $post->url;
-        //     echo $post->contnent;
-        // }
+        Log::info('This is some useful information.');
+        Log::debug('Here is some information that will help me find an error');
+        Log::warning('Something could be going wrong.');
+        Log::error('Something is really going wrong.');
+
         $data['posts'] = \App\Models\Post::paginate(4);
         return view('posts.index') -> with($data);
     }
@@ -47,6 +49,7 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
+        
         $rules = [
             'title'   => 'required|min:1',
             'url'     => 'required',
@@ -65,6 +68,8 @@ class PostsController extends Controller
         $post->save();
 
         $request->session()->flash('SUCCESS_MESSAGE', 'Post was saved successfully');
+        
+        Log::info($post->title . ' created');
 
         return redirect()->action('PostsController@show', $post->id);
     }
