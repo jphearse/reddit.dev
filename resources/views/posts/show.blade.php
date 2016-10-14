@@ -28,7 +28,11 @@
 		<h5>Created on: {{ $posts->created_at->setTimezone('America/Chicago')->format('l, F jS Y @ h:i:s A')}}</h5>
 		<p>{{ $posts->content }}</p>
 
-		<a href="/posts"><button type="button" class="btn btn-info">All Posts</button></a>
-		<a href="/posts/{{ $posts->id }}/edit"><button type="button" class="btn btn-danger">Edit</button></a>
-		<a href="/posts/"><button type="button" class="btn btn-danger">Delete</button></a>
+
+		<form class="form" method="POST" action="{{ action('PostsController@update', $posts->id) }}">
+				{!! csrf_field() !!}
+				{!! method_field('DELETE') !!}
+				<a href="/posts/{{ $posts->id }}/edit"><button type="button" class="btn btn-info">Edit</button></a>
+				<button role="button" class="btn btn-danger">Delete</button>
+		</form>
 @stop
