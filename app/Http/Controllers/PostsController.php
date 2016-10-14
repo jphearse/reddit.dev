@@ -36,8 +36,6 @@ class PostsController extends Controller
      */
     public function create()
     {
-        // $inputs = $request->all();
-        // var_dump($inputs);
         return view('posts.create');
     }
 
@@ -82,10 +80,7 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        // $posts = \App\Models\Post::find($id);
-        // return $posts;
-        // return 'Show a specific post';
-        $data['posts'] = \App\Models\Post::find($id);
+        $data['posts'] = \App\Models\Post::findOrFail($id);
         return view('posts.show') -> with($data);
     }
 
@@ -97,9 +92,9 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        $post = Post::find($id);
-        $data = ['post' => $post];
-        return view('posts.edit')->with($data);
+            $post = Post::findOrFail($id);
+            $data = ['post' => $post];
+            return view('posts.edit')->with($data);
     }
 
     /**
@@ -119,7 +114,7 @@ class PostsController extends Controller
 
         $this->validate($request, $rules);
 
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
         $post->title = $request->title;
         $post->url = $request->url;
         $post->content = $request->content;
@@ -137,7 +132,7 @@ class PostsController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
         $post->delete($id);
 
         $request->session()->flash('SUCCESS_MESSAGE', 'Post deleted successfully');
