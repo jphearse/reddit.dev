@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Hash;
 
+use DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -19,10 +20,10 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::paginate(10);
-        $data['users'] = $users;
+        // $users = User::paginate(10);
+        // $data['users'] = $users;
 
-        // $data['user'] = (isset($request->search)) ? User::searchUser($request->search)->paginate(5) : User::with('user')->paginate(5);
+        $data['users'] = ($request->has('search')) ? User::searchUser($request->search)->paginate(5) : User::with('posts')->paginate(5);
         return view('users.index')->with($data);
     }
 
