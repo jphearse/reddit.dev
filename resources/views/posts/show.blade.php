@@ -1,12 +1,11 @@
 @extends('layouts.masterInputs')
 
-@section('title', 'Post')
 
 @section('content')
 	<h1>{{ $posts->title }}</h1>
-	<h4>Created by: {{ $posts->created_by }}</h4>
+	<h4>Created by: <a href="/users/{{$posts->user->id}}">{{ $posts->user->name}}</a></h4>
 		<h5><a href="http://{{ $posts->url }}" target="_blank">{{ $posts->url }}</a></h5>
-		<h5>Created on: {{ $posts->created_at->setTimezone('America/Chicago')->format('l, F jS Y @ h:i:s A')}}</h5>
+		<h5>Created on: {{ $posts->created_at->format('l, F jS Y @ h:i:s A')}}</h5>
 	<hr>
 		<p>{{ $posts->content }}</p>
 
@@ -19,4 +18,5 @@
 				<button role="button" class="btn btn-danger">Delete <i class="fa fa-trash-o"></i></button>
 		</form>
 	@endif
+
 @stop

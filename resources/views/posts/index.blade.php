@@ -4,6 +4,7 @@
 
 @section('content')
 
+
 @foreach($posts as $post)
   <div class="well">
       <div class="media">

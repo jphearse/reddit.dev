@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use DB;
 use App\Models\Post;
 use App\Http\Requests;
+use App\Models\BaseModel;
 use App\Http\Controllers\Controller;
 
 
@@ -23,13 +25,18 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         // Log::info('This is some useful information.');
 
-        $data['posts'] = \App\Models\Post::paginate(5);
+        $data['posts'] = (isset($request->search)) ? Post::searchPosts($request->search)->paginate(5) : Post::with('user')->paginate(5);
+
+        // $post->title = $request->search;
+ 
         return view('posts.index') -> with($data);
     }
+
+
 
     /**
      * Show the form for creating a new resource.

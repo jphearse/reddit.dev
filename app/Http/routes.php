@@ -38,7 +38,10 @@ Route::get('/', ['middleware'=>'auth'], function () {
 
 Route::resource('posts', 'PostsController');
 
-Route::resource('users', 'UsersController', ['except' => ['create', 'store']]);
+Route::resource('users', 'UserController', ['except' => ['create', 'store']]);
+
+// Route::get('posts', 'PostsController@search');
+
 
 Route::get('orm-test', function ()
 {

@@ -4,20 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\User;
+use Hash;
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class UsersController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
-        $data = ['users' => $users];
+        $users = User::paginate(10);
+        $data['users'] = $users;
+
+        // $data['user'] = (isset($request->search)) ? User::searchUser($request->search)->paginate(5) : User::with('user')->paginate(5);
         return view('users.index')->with($data);
     }
 
@@ -50,9 +55,8 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        $user = User::find($id);
-        $data = ['user' => $user];
-        return view('users.show')->with($data);
+        $data['users'] = \App\User::findOrFail($id);
+        return view('users.show') -> with($data);
     }
 
     /**

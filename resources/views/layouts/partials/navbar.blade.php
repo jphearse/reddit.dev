@@ -17,7 +17,7 @@
                 <li><a href="{{ action('PostsController@index') }}">Posts</a></li>
 
                 @if(Auth::check())
-                    <li><a href="{{ action('UsersController@show', Auth::id()) }}">{{ Auth::user()->name }}</a></li>
+                    <li><a href="{{ action('UserController@show', Auth::id()) }}">{{ Auth::user()->name }}</a></li>
                     <li><a href="{{ action('Auth\AuthController@getLogout') }}">Logout</a></li>
                     <li><a href="{{ action('PostsController@create') }}">Create Post</a></li>
                 @else
@@ -25,12 +25,12 @@
                     <li><a href="{{ action('Auth\AuthController@getRegister') }}">Register</a></li>
                 @endif
             </ul>
-            {{-- <form class="navbar-form navbar-right" method="GET" action="{{ action('PostsController@index') }}">
+            <form class="navbar-form navbar-right" method="GET" action="{{ action('PostsController@index') }}">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search" name="search" value="{{ isset($searchTerm) ? $searchTerm : '' }}">
+                    <input type="text" class="form-control" placeholder="Search" name="search">
                 </div>
                 <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-            </form> --}}
+            </form>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
