@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\User;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class UserController extends Controller
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +16,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        // $users = User::all();
-        // $data['posts' =>'post'];
+        $users = User::all();
+        $data = ['users' => $users];
+        return view('users.index')->with($data);
     }
 
     /**
@@ -28,8 +28,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        // return 'hello';
-        return view('users.userCreate');
+        return view('users.create');
     }
 
     /**
@@ -51,7 +50,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        $data = ['user' => $user];
+        return view('users.show')->with($data);
     }
 
     /**
@@ -62,7 +63,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        // $user = User::find($id)
+        $user = User::find($id);
+        $data = ['user' => $user];
+        return view('users.edit')->with($data);
     }
 
     /**
@@ -74,7 +77,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $hashed_password = Hash::make($password);
     }
 
     /**

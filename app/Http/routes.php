@@ -32,9 +32,13 @@ Route::get('/add/{num1?}/{num2?}', function ($num1 = 0, $num2 = 0) {
 
 Route::get('/rolldice/{guess?}', 'HomeController@rolldice');
 
+Route::get('/', ['middleware'=>'auth'], function () {
+    return redirect()->action('PostsController@index');
+});
+
 Route::resource('posts', 'PostsController');
 
-Route::resource('user', 'UserController');
+Route::resource('users', 'UsersController', ['except' => ['create', 'store']]);
 
 Route::get('orm-test', function ()
 {
@@ -53,3 +57,12 @@ Route::get('orm-test', function ()
 	$post2->save();
 
 });
+
+// Authentication routes...
+Route::get('auth/login', 'Auth\AuthController@getLogin');
+Route::post('auth/login', 'Auth\AuthController@postLogin');
+Route::get('auth/logout', 'Auth\AuthController@getLogout');
+
+// Registration routes...
+Route::get('auth/register', 'Auth\AuthController@getRegister');
+Route::post('auth/register', 'Auth\AuthController@postRegister');

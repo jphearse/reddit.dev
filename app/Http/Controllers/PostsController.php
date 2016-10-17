@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Log;
 
 class PostsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -20,12 +25,9 @@ class PostsController extends Controller
      */
     public function index()
     {
-        Log::info('This is some useful information.');
-        Log::debug('Here is some information that will help me find an error');
-        Log::warning('Something could be going wrong.');
-        Log::error('Something is really going wrong.');
+        // Log::info('This is some useful information.');
 
-        $data['posts'] = \App\Models\Post::paginate(4);
+        $data['posts'] = \App\Models\Post::paginate(5);
         return view('posts.index') -> with($data);
     }
 
@@ -62,7 +64,7 @@ class PostsController extends Controller
         $post->title = $request->title;
         $post->url = $request->url;
         $post->content = $request->content;
-        $post->created_by = 1;
+        $post->created_by = $request->user()->id;
         $post->save();
 
         $request->session()->flash('SUCCESS_MESSAGE', 'Post was saved successfully');
