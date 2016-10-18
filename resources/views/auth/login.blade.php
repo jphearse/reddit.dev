@@ -1,6 +1,13 @@
 @extends('layouts.masterInputs')
 
 @section('content')
+	@if(count($errors))
+		<div class="alert alert-danger">
+		@foreach($errors->all() as $error)
+			<p>{{ $error }}</p>
+		@endforeach
+		</div>
+	@endif
 	<div class="row">
 		<div class="col-sm-6 col-sm-offset-3">
 			<form method="POST" action="{{ action('Auth\AuthController@postLogin') }}">

@@ -23,7 +23,7 @@ class UserController extends Controller
         // $users = User::paginate(10);
         // $data['users'] = $users;
 
-        $data['users'] = ($request->has('search')) ? User::searchUser($request->search)->paginate(5) : User::with('posts')->paginate(5);
+        $data['users'] = ($request->has('search')) ? User::searchUser($request->search)->paginate(10) : User::with('posts')->paginate(10);
         return view('users.index')->with($data);
     }
 
@@ -82,7 +82,15 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $hashed_password = Hash::make($password);
+        // $hashed_password = Hash::make($password);
+        $user = User::findOrFail($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        $request->session()->flash('SUCCESS_MESSAGE', 'User was updated successfully');
+        return redirect()->action('UserController@show', $user->id);
     }
 
     /**

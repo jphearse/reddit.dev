@@ -15,7 +15,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href="{{ action('PostsController@index') }}">Posts</a></li>
-
+                <li><a href="{{ action('UserController@index') }}">User</a></li>
                 @if(Auth::check())
                     <li><a href="{{ action('UserController@show', Auth::id()) }}">{{ Auth::user()->name }}</a></li>
                     <li><a href="{{ action('Auth\AuthController@getLogout') }}">Logout</a></li>

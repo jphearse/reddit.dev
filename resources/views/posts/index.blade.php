@@ -8,11 +8,11 @@
 @foreach($posts as $post)
   <div class="well">
       <div class="media">
-      	<a class="pull-left" href="posts/{{ $post->id }}">
+      	<a class="pull-left" href="{{action('PostsController@show', $post->id)}}">
     		<img class="media-object" src="http://placekitten.com/150/150">
   		</a>
   		<div class="media-body">
-    		<a href="posts/{{ $post->id }}"><h4 class="media-heading">{{ $post->title }}</h4></a>
+    		<a href="{{action('PostsController@show', $post->id)}}"><h4 class="media-heading">{{ $post->title }}</h4></a>
           <p>{{ $post->content }}</p>
           <ul class="list-inline list-unstyled">
   			<li><span><i class="glyphicon glyphicon-calendar"></i> {{ $post->created_at->format('l, jS F  Y') }}</span></li>
@@ -38,6 +38,6 @@
     </div>
   </div>
 @endforeach
-	{!! $posts->render() !!}
+	{!! $posts->appends(['search' => Request::get('search')])->render() !!}
 
 @stop

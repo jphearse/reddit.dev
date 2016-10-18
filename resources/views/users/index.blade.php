@@ -10,7 +10,7 @@
             <button type="submit" class="btn btn-default">Search</button>
 	</form>
 
-	<table class="table table-striped">
+	<table class="table table-hover">
 	<thead>
 		<tr>
 			<th>ID</th>
@@ -22,14 +22,10 @@
 		<tbody>
 			<tr>
 				<td>
-					<a href="{{action('UserController@edit', $user->id)}}" class="btn btn-info btn-sm">Edit</a>
-					<a href="{{action('UserController@destroy', $user->id)}}" class="btn btn-danger btn-sm">Delete</a>
+					{{$user->id}}
 				</td>
 				<td>
-				<a href="{{action('UserController@show', $user->id)}}">
-					
-					{{$user->name}}
-				</a>
+					<a href="{{action('UserController@show', $user->id)}}">{{$user->name}}</a>
 				</td>
 				<td>{{$user->email}}</td>
 			</tr>

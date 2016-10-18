@@ -32,7 +32,7 @@ Route::get('/add/{num1?}/{num2?}', function ($num1 = 0, $num2 = 0) {
 
 Route::get('/rolldice/{guess?}', 'HomeController@rolldice');
 
-Route::get('/', ['middleware'=>'auth'], function () {
+Route::get('/', ['middleware'=>'auth','uses'=>'PostsController@index'], function () {
     return redirect()->action('PostsController@index');
 });
 

@@ -24,6 +24,6 @@
 		<strong>Content:</strong> <input class="form-control" type="text" name="content" value="{{ old('content') ==null? $post->content : old('content')}}">
 		<br>
 		<input class="btn-success btn" type="submit">
-		<a href="/posts/{{ $post->id }}"><button type="button" class="btn btn-danger">Cancel</button></a>
+		<a href="{{ action('PostsController@edit', $post->id) }}"><button type="button" class="btn btn-danger">Cancel</button></a>
 	</form>
 @stop

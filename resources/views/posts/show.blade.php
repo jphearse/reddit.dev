@@ -3,8 +3,8 @@
 
 @section('content')
 	<h1>{{ $posts->title }}</h1>
-	<h4>Created by: <a href="/users/{{$posts->user->id}}">{{ $posts->user->name}}</a></h4>
-		<h5><a href="http://{{ $posts->url }}" target="_blank">{{ $posts->url }}</a></h5>
+	<h4>Created by: <a href="{{action('UserController@show', $posts->user->id)}}">{{ $posts->user->name}}</a></h4>
+		<h5><a href="{{ $posts->url }}" target="_blank">{{ $posts->url }}</a></h5>
 		<h5>Created on: {{ $posts->created_at->format('l, F jS Y @ h:i:s A')}}</h5>
 	<hr>
 		<p>{{ $posts->content }}</p>
