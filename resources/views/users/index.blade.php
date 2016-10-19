@@ -34,6 +34,6 @@
 	</table>
 
 	<div class="text-center">
-		{!! $users->render() !!}
+		{!! $users->appends(['search' => Request::get('search')])->render() !!}
 	</div>
 @stop

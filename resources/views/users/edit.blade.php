@@ -3,6 +3,13 @@
 @section('title', 'Edit')
 
 @section('content')
+    @if(count($errors))
+        <div class="alert alert-danger">
+        @foreach($errors->all() as $error)
+            <p>{{ $error }}</p>
+        @endforeach
+        </div>
+    @endif
 	<form class="form" method="POST" action="{{ action('UserController@update', $user->id) }}">
 		{!! csrf_field() !!}
 		{!! method_field('PUT') !!}
